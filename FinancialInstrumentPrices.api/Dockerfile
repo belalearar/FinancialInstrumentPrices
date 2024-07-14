@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FinancialInstrumentPrices.api/FinancialInstrumentPrices.api.csproj", "FinancialInstrumentPrices.api/"]
-RUN dotnet restore "./FinancialInstrumentPrices.api/FinancialInstrumentPrices.api.csproj"
+COPY ["FinancialInstrumentPrices.Api/FinancialInstrumentPrices.Api.csproj", "FinancialInstrumentPrices.Api/"]
+RUN dotnet restore "./FinancialInstrumentPrices.Api/FinancialInstrumentPrices.Api.csproj"
 COPY . .
-WORKDIR "/src/FinancialInstrumentPrices.api"
-RUN dotnet build "./FinancialInstrumentPrices.api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/FinancialInstrumentPrices.Api"
+RUN dotnet build "./FinancialInstrumentPrices.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FinancialInstrumentPrices.api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./FinancialInstrumentPrices.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FinancialInstrumentPrices.api.dll"]
+ENTRYPOINT ["dotnet", "FinancialInstrumentPrices.Api.dll"]

@@ -1,9 +1,11 @@
 ﻿using FinancialInstrumentPrices.Common;
 using FinancialInstrumentPrices.Common.Configs;
 using FinancialInstrumentPrices.Common.Messages;
+using FinancialInstrumentPrices.Common.Models;
 using FinancialInstrumentPrices.Common.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text.Json;
 
 namespace FinancialInstrumentPrices.Infrastructure.Services
 {

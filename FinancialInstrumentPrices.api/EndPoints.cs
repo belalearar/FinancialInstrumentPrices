@@ -12,13 +12,13 @@ namespace FinancialInstrumentPrices.Api
             app.MapHub<PriceHub>("/hubs/priceHub");
         }
 
-        private static IResult SymbolPrice(string symbol, ISymbolRepository symbolRepository)
+        private static async Task<IResult> SymbolPrice(string symbol, ISymbolRepository symbolRepository, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(symbol))
             {
                 return TypedResults.BadRequest();
             }
-            var price = symbolRepository.GetSymbolPrice(symbol);
+            var price = await symbolRepository.GetSymbolPrice(symbol, cancellationToken);
             return price is null ? TypedResults.NotFound() : Results.Ok(price);
         }
     }
