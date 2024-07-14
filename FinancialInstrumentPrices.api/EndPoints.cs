@@ -19,7 +19,7 @@ namespace FinancialInstrumentPrices.Api
                 return TypedResults.BadRequest();
             }
             var price = symbolRepository.GetSymbolPrice(symbol);
-            return Results.Ok(price);
+            return price is null ? TypedResults.NotFound() : Results.Ok(price);
         }
     }
 }
