@@ -14,4 +14,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialInstrumentPrices.Common\FinancialInstrumentPrices.Common.csproj" />
+    <ProjectReference Include="..\FinancialInstrumentPrices.Infrastructure\FinancialInstrumentPrices.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

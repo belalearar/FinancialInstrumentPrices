@@ -1,5 +1,5 @@
-﻿
-namespace FinancialInstrumentPrices.api.Services
+﻿    
+namespace FinancialInstrumentPrices.Common.Services
 {
     public interface IForexService
     {

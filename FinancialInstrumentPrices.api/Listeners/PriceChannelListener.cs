@@ -1,6 +1,7 @@
-﻿using FinancialInstrumentPrices.api.ChannelArgs;
-using FinancialInstrumentPrices.api.Hubs;
-using FinancialInstrumentPrices.api.Repository;
+﻿using FinancialInstrumentPrices.api.Hubs;
+using FinancialInstrumentPrices.Common.ChannelArgs;
+using FinancialInstrumentPrices.Common.Models;
+using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Channels;
 
@@ -18,7 +19,7 @@ namespace FinancialInstrumentPrices.api.Listeners
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     var symbolPrice = await channel.Reader.ReadAsync(stoppingToken);
-                    symbolRepository.UpdateSymbolPrice(new Models.PriceModel
+                    symbolRepository.UpdateSymbolPrice(new PriceModel
                     {
                         LastPrice = symbolPrice.LastPrice,
                         Symbol = symbolPrice.Symbol,

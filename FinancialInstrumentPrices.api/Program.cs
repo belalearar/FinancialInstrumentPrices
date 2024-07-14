@@ -1,12 +1,14 @@
 using FinancialInstrumentPrices.api;
-using FinancialInstrumentPrices.api.ChannelArgs;
-using FinancialInstrumentPrices.api.Configs;
+using FinancialInstrumentPrices.Common.ChannelArgs;
+using FinancialInstrumentPrices.Common.Configs;
 using FinancialInstrumentPrices.api.Listeners;
-using FinancialInstrumentPrices.api.Repository;
-using FinancialInstrumentPrices.api.Services;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Channels;
+using FinancialInstrumentPrices.Infrastructure.Services;
+using FinancialInstrumentPrices.Common.Repository;
+using FinancialInstrumentPrices.Common.Services;
+using FinancialInstrumentPrices.Infrastructure.Repository;
 
 
 var builder = WebApplication.CreateBuilder(args);

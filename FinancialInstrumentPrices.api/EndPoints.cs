@@ -1,5 +1,5 @@
 ﻿using FinancialInstrumentPrices.api.Hubs;
-using FinancialInstrumentPrices.api.Repository;
+using FinancialInstrumentPrices.Common.Repository;
 
 namespace FinancialInstrumentPrices.api
 {
@@ -12,7 +12,7 @@ namespace FinancialInstrumentPrices.api
             app.MapHub<PriceHub>("/hubs/priceHub");
         }
 
-        private static IResult SymbolPrice(string symbol, HttpContext context, ISymbolRepository symbolRepository)
+        private static IResult SymbolPrice(string symbol, ISymbolRepository symbolRepository)
         {
             if (string.IsNullOrEmpty(symbol))
             {

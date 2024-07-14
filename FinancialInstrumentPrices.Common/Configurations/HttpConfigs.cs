@@ -1,4 +1,4 @@
-﻿namespace FinancialInstrumentPrices.api.Configs
+﻿namespace FinancialInstrumentPrices.Common.Configs
 {
     public class HttpConfigs
     {

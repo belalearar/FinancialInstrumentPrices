@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace FinancialInstrumentPrices.api.Models
+namespace FinancialInstrumentPrices.Common.Models
 {
     public class SymbolPrice
     {

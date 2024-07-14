@@ -1,5 +1,6 @@
-﻿using FinancialInstrumentPrices.api.Models;
-using FinancialInstrumentPrices.api.Repository;
+﻿using FinancialInstrumentPrices.api.Utilities;
+using FinancialInstrumentPrices.Common.Models;
+using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.AspNetCore.SignalR;
 
 namespace FinancialInstrumentPrices.api.Hubs

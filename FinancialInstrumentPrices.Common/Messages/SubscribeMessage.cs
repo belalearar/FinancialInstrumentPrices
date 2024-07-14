@@ -1,4 +1,4 @@
-﻿namespace FinancialInstrumentPrices.api.Models
+﻿namespace FinancialInstrumentPrices.Common.Messages
 {
     public class SubscribeMessage
     {

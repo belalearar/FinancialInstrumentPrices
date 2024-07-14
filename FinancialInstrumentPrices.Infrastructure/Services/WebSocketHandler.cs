@@ -1,11 +1,12 @@
-﻿using FinancialInstrumentPrices.api.Models;
+﻿using FinancialInstrumentPrices.Common.Models;
 using System.Net.WebSockets;
 using System.Text.Json;
 using System.Text;
-using FinancialInstrumentPrices.api.ChannelArgs;
+using FinancialInstrumentPrices.Common.ChannelArgs;
 using System.Threading.Channels;
+using FinancialInstrumentPrices.Common.Services;
 
-namespace FinancialInstrumentPrices.api.Services
+namespace FinancialInstrumentPrices.Infrastructure.Services
 {
     public class WebSocketHandler(Channel<PriceChannelArgs> channel) : IWebSocketHandler
     {

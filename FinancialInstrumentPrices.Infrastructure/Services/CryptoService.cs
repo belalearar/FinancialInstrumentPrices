@@ -1,8 +1,11 @@
-﻿using FinancialInstrumentPrices.api.Configs;
-using FinancialInstrumentPrices.api.Models;
+﻿using FinancialInstrumentPrices.Common;
+using FinancialInstrumentPrices.Common.Configs;
+using FinancialInstrumentPrices.Common.Messages;
+using FinancialInstrumentPrices.Common.Services;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FinancialInstrumentPrices.api.Services
+namespace FinancialInstrumentPrices.Infrastructure.Services
 {
     public class CryptoService(ILogger<CryptoService> logger, IOptions<HttpConfigs> httpOptions,
         IWebSocketHandler webSocketHandler,

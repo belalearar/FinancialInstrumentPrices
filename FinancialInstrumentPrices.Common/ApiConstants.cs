@@ -1,4 +1,4 @@
-﻿namespace FinancialInstrumentPrices.api
+﻿namespace FinancialInstrumentPrices.Common
 {
     public class ApiConstants
     {

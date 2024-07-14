@@ -1,7 +1,9 @@
-﻿using FinancialInstrumentPrices.api.Models;
+﻿using FinancialInstrumentPrices.Common.Models;
+using FinancialInstrumentPrices.Common.Repository;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace FinancialInstrumentPrices.api.Repository
+namespace FinancialInstrumentPrices.Infrastructure.Repository
 {
     public class SymbolRepository(ILogger<SymbolRepository> logger) : ISymbolRepository
     {

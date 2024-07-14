@@ -1,7 +1,7 @@
 ﻿
-using FinancialInstrumentPrices.api.Models;
+using FinancialInstrumentPrices.Common.Models;
 
-namespace FinancialInstrumentPrices.api.Repository
+namespace FinancialInstrumentPrices.Common.Repository
 {
     public interface ISymbolRepository
     {
