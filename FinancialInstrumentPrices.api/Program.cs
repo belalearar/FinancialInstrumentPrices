@@ -4,6 +4,8 @@ using FinancialInstrumentPrices.api.Configs;
 using FinancialInstrumentPrices.api.Listeners;
 using FinancialInstrumentPrices.api.Repository;
 using FinancialInstrumentPrices.api.Services;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Channels;
 
 
@@ -24,6 +26,13 @@ builder.Host
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddSingleton(Channel.CreateUnbounded<PriceChannelArgs>(new UnboundedChannelOptions() { SingleReader = false }));
+        services.AddSignalR().AddJsonProtocol(config =>
+        {
+            config.PayloadSerializerOptions.PropertyNameCaseInsensitive = true;
+            config.PayloadSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            config.PayloadSerializerOptions.NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals;
+            config.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
     });
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -31,7 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseRouting();
+
 app.UseHttpsRedirection();
 app.MapApiEndpoints();
+app.UseRouting();
 app.Run();

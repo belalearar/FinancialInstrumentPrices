@@ -1,12 +1,15 @@
 ﻿using FinancialInstrumentPrices.api.ChannelArgs;
+using FinancialInstrumentPrices.api.Hubs;
 using FinancialInstrumentPrices.api.Repository;
+using Microsoft.AspNetCore.SignalR;
 using System.Threading.Channels;
 
 namespace FinancialInstrumentPrices.api.Listeners
 {
     public class PriceChannelListener(Channel<PriceChannelArgs> channel,
         ILogger<PriceChannelListener> logger,
-        ISymbolRepository symbolRepository) : BackgroundService
+        ISymbolRepository symbolRepository,
+        IHubContext<PriceHub> priceHub) : BackgroundService
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -21,6 +24,7 @@ namespace FinancialInstrumentPrices.api.Listeners
                         Symbol = symbolPrice.Symbol,
                         TickTime = symbolPrice.TickTime
                     });
+                    await priceHub.Clients.Group(symbolPrice.Symbol).SendAsync("PriceUpdate", symbolPrice, stoppingToken);
                 }
             }
             catch (Exception ex)

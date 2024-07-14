@@ -7,6 +7,11 @@ namespace FinancialInstrumentPrices.api.Repository
     {
         private readonly ConcurrentDictionary<string, PriceModel> _symbolsPrice = new();
 
+        public IEnumerable<PriceModel> GetQuotesBySymbolCodes(List<string> symbols)
+        {
+            return _symbolsPrice.Values.Where(a => symbols.Any(symbol => symbol == a.Symbol)).ToList();
+        }
+
         public PriceModel? GetSymbolPrice(string symbol)
         {
             if (!_symbolsPrice.TryGetValue(symbol, out var price))
