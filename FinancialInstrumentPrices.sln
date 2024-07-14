@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialInstrumentPrices.api", "FinancialInstrumentPrices.api\FinancialInstrumentPrices.api.csproj", "{4A0DCFD7-7DA9-4876-B2C8-A156A03E73F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialInstrumentPrices.Api", "FinancialInstrumentPrices.api\FinancialInstrumentPrices.Api.csproj", "{4A0DCFD7-7DA9-4876-B2C8-A156A03E73F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialInstrumentPrices.Infrastructure", "FinancialInstrumentPrices.Infrastructure\FinancialInstrumentPrices.Infrastructure.csproj", "{003C5E47-2447-45C2-9F95-23ED545EB487}"
 EndProject

@@ -1,11 +1,11 @@
-﻿using FinancialInstrumentPrices.api.Hubs;
+﻿using FinancialInstrumentPrices.Api.Hubs;
 using FinancialInstrumentPrices.Common.ChannelArgs;
 using FinancialInstrumentPrices.Common.Models;
 using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Channels;
 
-namespace FinancialInstrumentPrices.api.Listeners
+namespace FinancialInstrumentPrices.Api.Listeners
 {
     public class PriceChannelListener(Channel<PriceChannelArgs> channel,
         ILogger<PriceChannelListener> logger,

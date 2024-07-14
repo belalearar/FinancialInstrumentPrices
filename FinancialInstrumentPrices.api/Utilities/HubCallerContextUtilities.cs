@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace FinancialInstrumentPrices.api.Utilities
+namespace FinancialInstrumentPrices.Api.Utilities
 {
     public static class HubCallerContextUtilities
     {

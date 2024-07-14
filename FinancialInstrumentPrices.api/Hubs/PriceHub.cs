@@ -1,9 +1,9 @@
-﻿using FinancialInstrumentPrices.api.Utilities;
+﻿using FinancialInstrumentPrices.Api.Utilities;
 using FinancialInstrumentPrices.Common.Models;
 using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.AspNetCore.SignalR;
 
-namespace FinancialInstrumentPrices.api.Hubs
+namespace FinancialInstrumentPrices.Api.Hubs
 {
     public class PriceHub(ISymbolRepository symbolRepository, ILogger<PriceHub> logger) : Hub
     {

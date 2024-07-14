@@ -1,7 +1,7 @@
-﻿using FinancialInstrumentPrices.api.Hubs;
+﻿using FinancialInstrumentPrices.Api.Hubs;
 using FinancialInstrumentPrices.Common.Repository;
 
-namespace FinancialInstrumentPrices.api
+namespace FinancialInstrumentPrices.Api
 {
     public static class EndPoints
     {
