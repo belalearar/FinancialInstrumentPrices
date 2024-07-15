@@ -5,7 +5,6 @@ using FinancialInstrumentPrices.Common.Repository;
 using FinancialInstrumentPrices.Common.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Diagnostics.SymbolStore;
 
 namespace FinancialInstrumentPrices.Infrastructure.Services
 {
@@ -25,6 +24,13 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
             {
                 logger.LogWarning("Symbol Not Configured");
                 return priceModel;
+            }
+
+            //Check Live Cache First Before 
+            var inCacheSymbols = symbolRepository.GetQuotesBySymbolCodes([symbolCode]);
+            if (inCacheSymbols.Any())
+            {
+                return inCacheSymbols.FirstOrDefault();
             }
             //Fetch Symbol Price From Source
             if (isForex.Value)
