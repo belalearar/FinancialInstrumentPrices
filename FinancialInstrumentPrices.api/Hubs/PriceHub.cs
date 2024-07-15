@@ -2,9 +2,11 @@
 using FinancialInstrumentPrices.Common.Models;
 using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.AspNetCore.SignalR;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FinancialInstrumentPrices.Api.Hubs
 {
+    [ExcludeFromCodeCoverage]
     public class PriceHub(ISymbolRepository symbolRepository, ILogger<PriceHub> logger) : Hub
     {
         public async Task<IEnumerable<PriceModel>> SubscribeToQuotes(QuoteRequest request)

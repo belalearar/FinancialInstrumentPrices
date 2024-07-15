@@ -1,8 +1,10 @@
 ﻿using FinancialInstrumentPrices.Api.Hubs;
 using FinancialInstrumentPrices.Common.Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FinancialInstrumentPrices.Api;
 
+[ExcludeFromCodeCoverage]
 public static class EndPoints
 {
     public static void MapApiEndpoints(this WebApplication app)

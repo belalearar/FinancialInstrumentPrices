@@ -1,9 +1,11 @@
 ﻿using FinancialInstrumentPrices.Common.Repository;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 namespace FinancialInstrumentPrices.Infrastructure.Repository
 {
+    [ExcludeFromCodeCoverage]
     public class HttpRepository(HttpClient httpClient, ILogger<HttpRepository> logger) : IHttpRepository
     {
         public async Task<T> GetAsync<T>(string url)
