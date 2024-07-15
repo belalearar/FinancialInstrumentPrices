@@ -9,7 +9,8 @@ using FinancialInstrumentPrices.Infrastructure.Services;
 using FinancialInstrumentPrices.Common.Repository;
 using FinancialInstrumentPrices.Common.Services;
 using FinancialInstrumentPrices.Infrastructure.Repository;
-
+using System.Net;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Host
         services.AddHostedService<SubscribeToCryptoPrices>();
         services.AddHostedService<PriceChannelListener>();
         services.AddSingleton<ISymbolRepository, SymbolRepository>();
+        services.AddSingleton<IPriceService, PriceService>();
         services.AddSingleton<ICryptoService, CryptoService>();
         services.AddSingleton<IForexService, ForexService>();
         services.AddTransient<IWebSocketHandler, WebSocketHandler>();
@@ -34,6 +36,19 @@ builder.Host
             config.PayloadSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             config.PayloadSerializerOptions.NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals;
             config.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
+        services.AddHttpClient<IHttpRepository, HttpRepository>().ConfigureHttpClient(config =>
+        {
+            var httpClientSection = ctx.Configuration.GetSection(HttpConfigs.Identifier);
+            var timeout = httpClientSection.GetValue("TimeoutInSeconds", 30);
+
+            config.Timeout = new TimeSpan(0, 0, timeout);
+            config.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+            config.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("deflate"));
+            config.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("br"));
+        }).ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Brotli | DecompressionMethods.Deflate
         });
     });
 var app = builder.Build();

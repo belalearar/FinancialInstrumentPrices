@@ -5,13 +5,14 @@ using System.Text;
 using FinancialInstrumentPrices.Common.ChannelArgs;
 using System.Threading.Channels;
 using FinancialInstrumentPrices.Common.Services;
+using Microsoft.Extensions.Logging;
 
 namespace FinancialInstrumentPrices.Infrastructure.Services
 {
-    public class WebSocketHandler(Channel<PriceChannelArgs> channel) : IWebSocketHandler
+    public class WebSocketHandler(Channel<PriceChannelArgs> channel, ILogger<WebSocketHandler> logger) : IWebSocketHandler
     {
-        private ClientWebSocket WS;
-        private CancellationTokenSource CTS;
+        private ClientWebSocket? WS = new();
+        private CancellationTokenSource? CTS = new();
 
         public async Task ConnectAsync(string url)
         {
@@ -29,9 +30,9 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
 
         private async Task ReceiveLoop()
         {
-            var loopToken = CTS.Token;
+            var loopToken = CTS!.Token;
             MemoryStream? outputStream = null;
-            WebSocketReceiveResult? receiveResult = null;
+            WebSocketReceiveResult? receiveResult;
             byte[] buffer = [250];
             try
             {
@@ -50,7 +51,10 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
                     ResponseReceived(outputStream);
                 }
             }
-            catch (TaskCanceledException) { }
+            catch (TaskCanceledException ex)
+            {
+                logger.LogError(ex, "Disposeing Stream:: Error While Listining To Prices {error}", ex.Message);
+            }
             finally
             {
                 outputStream?.Dispose();
@@ -60,7 +64,6 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
         public async Task DisconnectAsync()
         {
             if (WS is null) return;
-            // TODO: requests cleanup code, sub-protocol dependent.
             if (WS.State == WebSocketState.Open)
             {
                 CTS!.CancelAfter(TimeSpan.FromSeconds(2));
@@ -75,7 +78,7 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
 
         public async Task SendMessageAsync<RequestType>(RequestType message, CancellationToken cancellationToken)
         {
-            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
+            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message, options: new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
             await WS!.SendAsync(new ArraySegment<byte>(bytes), WebSocketMessageType.Text, true, cancellationToken);
         }
 
@@ -83,8 +86,7 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
         {
             StreamReader reader = new(inputStream);
             string text = reader.ReadToEnd();
-            Console.WriteLine(text);
-            var price = JsonSerializer.Deserialize<SymbolPrice>(text, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase })!;
+            var price = JsonSerializer.Deserialize<SymbolPrice>(text, options: new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase })!;
             if (price.MessageType == "A")
             {
                 await channel.Writer.WriteAsync(new PriceChannelArgs
