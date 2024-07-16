@@ -18,6 +18,13 @@ namespace FinancialInstrumentPrices.Infrastructure.Services
     {
         private readonly HttpConfigs _httpConfigs = httpOptions.Value;
         private readonly ApiSettings _settingsConfigs = settingsOptions.Value;
+        /// <summary>
+        /// this service will handle the subscription for crypto prices,
+        /// then every message received from the source will write to seperated channel.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task SubscribeToSymbolsPrice(CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(_settingsConfigs.ApiKey))

@@ -10,6 +10,15 @@ using Microsoft.Extensions.Options;
 
 namespace FinancialInstrumentPrices.Infrastructure.Services
 {
+    /// <summary>
+    ///  this service will handle the subscription for forex prices,
+    ///  then every message received from the source will write to seperated channel.
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="httpOptions"></param>
+    /// <param name="webSocketHandler"></param>
+    /// <param name="settingsOptions"></param>
+    /// <param name="httpRepository"></param>
     public class ForexService(ILogger<ForexService> logger, IOptions<HttpConfigs> httpOptions,
         IWebSocketHandler webSocketHandler,
         IOptions<ApiSettings> settingsOptions,

@@ -8,6 +8,14 @@ using System.Threading.Channels;
 
 namespace FinancialInstrumentPrices.Api.Listeners
 {
+    /// <summary>
+    /// this seperated service will listen to price channel and publish prices from all sources
+    /// to all subscribed clients.
+    /// </summary>
+    /// <param name="channel"></param>
+    /// <param name="logger"></param>
+    /// <param name="symbolRepository"></param>
+    /// <param name="priceHub"></param>
     [ExcludeFromCodeCoverage]
     public class PriceChannelListener(Channel<PriceChannelArgs> channel,
         ILogger<PriceChannelListener> logger,

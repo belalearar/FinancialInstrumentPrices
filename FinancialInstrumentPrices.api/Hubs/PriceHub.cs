@@ -13,12 +13,12 @@ namespace FinancialInstrumentPrices.Api.Hubs
         {
             if (Context.User == null)
             {
-                return await HubCallerContextUtilities.AbortConnection(this, new List<PriceModel>());
+                return await HubCallerContextUtilities.AbortConnection(this, new List<PriceModel>(), "invalid user", "SubscribeToQuotes");
             }
 
             if (request.Symbols.Count == 0 || request.Symbols.Any(string.IsNullOrEmpty))
             {
-                return await HubCallerContextUtilities.AbortConnection(this, new List<PriceModel>(), "Invalid request message", "ArgumentException");
+                return await HubCallerContextUtilities.AbortConnection(this, new List<PriceModel>(), "Invalid request message", "SubscribeToQuotes");
             }
 
             var results = symbolRepository.GetQuotesBySymbolCodes(request.Symbols);
